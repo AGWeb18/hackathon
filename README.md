@@ -1,0 +1,2 @@
+# hackathon
+Phonegap application
