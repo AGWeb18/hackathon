@@ -17,6 +17,7 @@ $$(document).on('deviceready', function () {
 });
 
 
+
 // Now we need to run the code that will be executed only for About page.
 
 // Option 1. Using page callback for page (for "about" page in this case) (recommended way):
