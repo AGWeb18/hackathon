@@ -10,17 +10,27 @@ function messagesMain() {
     var msgBar = msgHandler.messagebar('.messagebar');
     var currentMsg = "";
 
+    $$('.messagebar').on('keypress', function (e) {
+        if (e.keyCode == 13) {
+            sendMsg();
+        }
+    })
+
     $$('.messagebar').on('click', function () {
+        sendMsg();
+
+    })
+
+    var sendMsg = function () {
         currentMsg = msgBar.value().trim();
         msgBar.clear();
-        messages.add
 
         messages.addMessage({
             text: currentMsg,
             name: "Mateo"
 
         }, "append", true);
-
-    })
+        console.log("message sent");
+    }
 
 };
