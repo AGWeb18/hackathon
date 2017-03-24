@@ -25,10 +25,12 @@ myApp.onPageInit('about', function (page) {
 
 })
 
-myApp.onPageInit('login', function(page){
-
+//Messages Page
+myApp.onPageInit('messages', function (page) {
+    messagesMain();
 
 })
+
 
 // Option 2. Using one 'pageInit' event handler for all pages:
 $$(document).on('pageInit', function (e) {
