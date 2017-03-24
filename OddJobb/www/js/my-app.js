@@ -12,7 +12,7 @@ var mainView = myApp.addView('.view-main', {
 });
 
 // Handle Cordova Device Ready Event
-$$(document).on('deviceready', function() {
+$$(document).on('deviceready', function () {
     console.log("Device is ready!");
 });
 
@@ -22,27 +22,55 @@ $$(document).on('deviceready', function() {
 // Option 1. Using page callback for page (for "about" page in this case) (recommended way):
 myApp.onPageInit('about', function (page) {
     // Do something here for "about" page
-
-})
-
-myApp.onPageInit('login', function(page){
-
-
-})
-
-// Option 2. Using one 'pageInit' event handler for all pages:
-$$(document).on('pageInit', function (e) {
-    // Get page data from event data
-    var page = e.detail.page;
-
-    if (page.name === 'about') {
-        // Following code will be executed for page with data-page attribute equal to "about"
-        myApp.alert('Here comes About page');
-    }
-})
-
-// Option 2. Using live 'pageInit' event handlers for each page
-$$(document).on('pageInit', '.page[data-page="about"]', function (e) {
-    // Following code will be executed for page with data-page attribute equal to "about"
     myApp.alert('Here comes About page');
+})
+
+myApp.onPageInit('login', function (page) {
+})
+
+myApp.onPageInit('post', function (page) {
+    console.log(page.query);
+    /*
+    1. Do AJAX call to get post based on postID
+    2. Generate post data!
+    */
+
+})
+
+myApp.onPageInit('postList', function (page) {
+    console.log('posted!');
+
+    /*
+    1. Do AJAX call
+    2. Put data into Array
+    3. Set array
+    */
+
+    const posts = [
+        /*
+        {
+            title: 'Need people to show shovel for me tomorrow!',
+            text: 'House is not too large, so should not be an issue!',
+            price: '5',
+            postalCode: '5'
+            
+        }*/
+    ];
+
+    for (var i = 0; i < 50; i++) {
+        posts.push({
+            item: i
+        });
+    }
+
+    const myList = myApp.virtualList('.list-block.virtual-list', {
+        items: posts,
+        template:
+        '<li>' +
+        '<a href="post.html?postID={{item}}" class="item-link item-content">' +
+        '<div>{{item}}</div>' +
+        '</a>' +
+        '</div>' +
+        '</li>'
+    });
 })
