@@ -1,0 +1,21 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.hack4good.oddjobb"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.hack4good.oddjobb"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.hack4good.oddjobb"
+        }
+    },
+    "dependent_plugins": {}
+}
