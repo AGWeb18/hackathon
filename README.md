@@ -1,2 +1,2 @@
 # hackathon
-Phonegap application
+Phonegap application test commit
