@@ -1,23 +1,19 @@
 myApp.onPageInit('post', function (page) {
-    /*
-         1. Do AJAX call to get post based on postID
-         2. Generate post data!
-         */
+    console.log('posted!');
 
     const testPost = {
         season: 'img/green.jpg',
         title: 'Grass Mowing Required',
         date: 'January 21, 2015',
         text: 'Guys please help my grass is growing too large',
+        postalCode: 'l1n4e5'
     }
-    
+
     const posts = [];
+
     posts.push(testPost);
 
-    console.log(posts);
-
-
-    const myList = myApp.virtualList('.virtual-list.cardslist', {
+    const myList = myApp.virtualList('.single-card', {
         items: posts,
         template:
         '<div class="card" >' +
@@ -31,10 +27,20 @@ myApp.onPageInit('post', function (page) {
         '       </div>' +
         '   <div class="card-footer">' +
         '   <a href="#" class="button button-big">Contact</a>' +
-        '   <a href="#" class="button button-big">Map</a>' +
+        '   <a href="post.html?postID=5" class="button button-big">Map</a>' +
         '   </div>' +
         '</div >'
     });
+
+
+    myApp.params.swipePanel = false;
+    map = new GMaps({
+        div: '#map',
+        lat: -12.043333,
+        lng: -77.028333
+    });
+
+    address(testPost.postalCode);
 })
 
 myApp.onPageInit('postList', function (page) {
@@ -105,8 +111,25 @@ myApp.onPageInit('postList', function (page) {
         '       </div>' +
         '   <div class="card-footer">' +
         '   <a href="#" class="button button-big">Contact</a>' +
-        '   <a href="#" class="button button-big">Map</a>' +
+        '   <a href="post.html?postID=5" class="button button-big">Map</a>' +
         '   </div>' +
         '</div >'
     });
 })
+
+
+function address(adr) {
+    GMaps.geocode({
+        address: adr,
+        callback: function (results, status) {
+            if (status == 'OK') {
+                var latlng = results[0].geometry.location;
+                map.setCenter(latlng.lat(), latlng.lng());
+                map.addMarker({
+                    lat: latlng.lat(),
+                    lng: latlng.lng()
+                });
+            }
+        }
+    });
+} 
