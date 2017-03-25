@@ -14,6 +14,12 @@ var mainView = myApp.addView('.view-main', {
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
+  window.user = false;
+  window.login = false;
+  document.getElementById('createPost').style.visibility = 'hidden';
+  document.getElementById('viewMessages').style.visibility = 'hidden';
+  document.getElementById('profile').style.visibility = 'hidden';
+  document.getElementById('logout').style.visibility = 'hidden';
     console.log("Device is ready!");
     $.get('https://oddjobbackend.herokuapp.com/users', function(data){
       users = data;
@@ -39,9 +45,13 @@ $$(document).on('deviceready', function () {
       }
       else if(isPasswordCorrect(username, password, users)) {
         //set global variable to indicate correct login
-        console.log('Correct welcome my friend');
+        myApp.alert('Welcome ' + username + '! You are now logged in.');
         window.user = username;
         window.login = true;
+        document.getElementById('createPost').style.visibility = 'visible';
+        document.getElementById('viewMessages').style.visibility = 'visible';
+        document.getElementById('profile').style.visibility = 'visible';
+        document.getElementById('logout').style.visibility = 'visible';
       }
 
       else {
@@ -69,6 +79,28 @@ function isPasswordCorrect(username, password, users) {
 
 
   }
+
+
+}
+
+function logout(e) {
+
+  if(window.login === true) {
+    myApp.alert('Goodbye '+ window.user + ' You have been logged out!');
+    window.user = false;
+    window.login = false;
+    document.getElementById('createPost').style.visibility = 'hidden';
+    document.getElementById('viewMessages').style.visibility = 'hidden';
+    document.getElementById('profile').style.visibility = 'hidden';
+    document.getElementById('logout').style.visibility = 'hidden';
+  }
+
+  else {
+    myApp.alert('You can\'t log out if you\'re not logged in');
+
+
+  }
+
 
 
 }

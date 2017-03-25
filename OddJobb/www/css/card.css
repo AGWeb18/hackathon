@@ -4,8 +4,9 @@
     background-position: center;
 }
 
-h3 .card-title {
-    margin: 0;
+h3 {
+    -webkit-margin-before:0em;
+    -webkit-margin-after:0em;
 }
 
 ul {

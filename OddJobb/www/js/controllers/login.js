@@ -28,9 +28,13 @@ myApp.onPageInit('login', function (page) {
         }
         else if(isPasswordCorrect(username, password, users)) {
           //set global variable to indicate correct login
-          console.log('Correct welcome my friend');
+          myApp.alert('Welcome ' + username + '! You are now logged in!');
           window.user = username;
           window.login = true;
+          document.getElementById('createPost').style.visibility = 'visible';
+          document.getElementById('viewMessages').style.visibility = 'visible';
+          document.getElementById('profile').style.visibility = 'visible';
+          document.getElementById('logout').style.visibility = 'visible';
         }
 
         else {
