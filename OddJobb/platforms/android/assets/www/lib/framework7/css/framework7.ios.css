@@ -4296,6 +4296,12 @@ html.pixel-ratio-3 .picker-modal.smart-select-picker .toolbar:after {
   z-index: 6000;
   left: -260px;
 }
+
+.page-content {
+  background-image: url("../../../img/blue.png");
+
+
+}
 .panel.panel-left.panel-reveal {
   left: 0;
 }

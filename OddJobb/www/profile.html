@@ -17,26 +17,8 @@
 <div class="pages">
     <div data-page="profile" class="page">
         <div class="page-content">
-            <div class="content-block">		
-			<div class="list-block">
-			  <ul>
-				<li class="item-content">
-				  <div class="item-inner">
-					<div class="item-title">John Smith</div>
-				  </div>
-				</li>
-				<li class="item-content">
-				  <div class="item-inner">
-					<div class="item-title">JohnSmith23@gmail.com</div>
-				  </div>
-				</li>
-				<li class="item-content">
-				  <div class="item-inner">
-					<div class="item-title">905-441-0441</div>
-				  </div>
-				</li>
-			  </ul>
-			</div>
+            <div class="content-block">
+	
 			<p style="font-size:20px" align="center">Update Profile</p>
 				<form method="post" id="profile_form">
 					<div class="list-block">
@@ -45,7 +27,7 @@
 									<div class="item-inner">
 										<div class="item-title label">First Name</div>
 											<div class="item-input">
-												<input type="text" name="firstName" placeholder="Your first name">
+												<input type="text" id="name" name="firstName" placeholder="Your first name">
 											</div>
 									</div>
 								</li>
@@ -53,15 +35,15 @@
 									<div class="item-inner">
 										<div class="item-title label">Last Name</div>
 											<div class="item-input">
-												<input type="text" name="lastName" placeholder="Your last name">
+												<input type="text" id="lastname" name="lastName" placeholder="Your last name">
 											</div>
 									</div>
-								</li>                
+								</li>
 								<li class="item-content">
 									<div class="item-inner">
 										<div class="item-title label">Email</div>
 											<div class="item-input">
-												<input type="text" name="email" placeholder="Your email">
+												<input type="text" id="email" name="email" placeholder="Your email">
 											</div>
 									</div>
 								</li>
@@ -69,7 +51,7 @@
 									<div class="item-inner">
 										<div class="item-title label">Phone</div>
 											<div class="item-input">
-												<input type="text" name="phone" placeholder="Your phone number">
+												<input type="text" id="phone" name="phoneNum" placeholder="Your phone number">
 											</div>
 									</div>
 								</li>
@@ -77,7 +59,7 @@
 									<div class="item-inner">
 									<div class="item-title label">Password</div>
 									<div class="item-input">
-									<input type="password" name="password" placeholder="Your password">
+									<input type="password" id="passWord" name="password" placeholder="Your password">
 									</div>
 									</div>
 								</li>
@@ -85,12 +67,12 @@
 						</div>
 						<div class="list-block">
 						<ul>
-						<li><a href="#" class="item-link list-button">Update Profile</a></li>
+						<li><a href="#" id="updateProfile" class="item-link list-button">Update Profile</a></li>
 						</ul>
 						</div>
 				</form>
-				</div>	
+				</div>
             </div>
         </div>
     </div>
-</div>				
+</div>
