@@ -28,18 +28,19 @@ myApp.onPageInit('login', function (page) {
         }
         else if(isPasswordCorrect(username, password, users)) {
           //set global variable to indicate correct login
-          myApp.alert('Welcome ' + username + '! You are now logged in!');
+          myApp.alert('Welcome ' + username + '! You are now logged in!', 'Log In Success');
           window.user = username;
           window.login = true;
-          document.getElementById('createPost').style.visibility = 'visible';
-          document.getElementById('viewMessages').style.visibility = 'visible';
-          document.getElementById('profile').style.visibility = 'visible';
-          document.getElementById('logout').style.visibility = 'visible';
+          document.getElementById('createPost').style.display = 'block';
+          document.getElementById('viewMessages').style.display = 'block';
+          document.getElementById('profile').style.display = 'block';
+          document.getElementById('logout').style.display = 'block';
+          mainView.router.loadPage({url:'postList.html', ignoreCache:true, reload:true });
         }
 
         else {
 
-          myApp.alert('Incorrect password!');
+          myApp.alert('Incorrect password!', "Error");
 
         }
 
