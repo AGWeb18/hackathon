@@ -7,14 +7,17 @@ myApp.onPageInit('indMsg', function (page) {
   //Change title of message
   title.innerHTML = personName;
   //Get message of people using their email
-  getMessages(email, true);
+  if(email === null || email === ""){
+    printErr("No email has been entered.");
+  }
+  getMessages(email);
   sendMessage(personName, email);
 })
 
 //Messages Page
 myApp.onPageInit('messages', function (page) {
   var peopleTemplate = '<li>' +
-  '<a href="indMsg.html?personName={{personName}}&email={{email}}" class="item-link item-content">' +
+  '<a href="indMsg.html?personName={{item}}&email={{email}}" class="item-link item-content">' +
   '<div>{{item}}: {{messagePreview}}</div>' +
   '</a>' +
   '</div>' +
@@ -22,24 +25,35 @@ myApp.onPageInit('messages', function (page) {
 
   //Will be reading this from the database
   //Get list of users
-  $.get('http://oddjobbackend.herokuapp.com/users', function(data) {
-    const people = [];
-    for(var i = 0; i < data.length; i++){
-      var currentP = data[i];
-      console.log(currentP);
-      getMessages(currentP.email, false, function(msgs){
-        var msg = "Test Message Test Message Test Message";
+  const people = [];
+  var currentP = {};
+  var currentMsg = {}
+  $.get('http://oddjobbackend.herokuapp.com/users', function(users) {
+    $.get("http://oddjobbackend.herokuapp.com/messages", function(msgs){
+      for(var i = 0; i < users.length; i++){
+        currentP = users[i];
+        //Default message, in case there person has not sent any messages.
+        currentMsg = {message:"Test Message Test Message Test Message", email:"none"};
         if(msgs.length > 0){
-          msg = msgs[msgs.length - 1].message;
+          currentMsg = msgs[msgs.length - 1];
         }
-        people.push({item:currentP.firstName, messagePreview:msg.substring(0, 20).substring(0, 10), email:currentP.email});
-        const myListOfPeople = myApp.virtualList('.list-block.virtual-list', {
-          items: people,
-          template: peopleTemplate
-        });
-      });
 
-    }
-
+        for(var a = 0; a < msgs.length; a++){
+          //Check current email belongs to correct user
+          if(currentP.email === currentMsg.email){
+            people.push({item:currentP.firstName, messagePreview:currentMsg.message.substring(0, 20).substring(0, 10), email:currentP.email});
+            const myListOfPeople = myApp.virtualList('.list-block.virtual-list', {
+              items: people,
+              template: peopleTemplate
+            });
+            break;
+          }
+          else{
+            //Set email to previous one in list
+            currentMsg = msgs[msgs.length - (a + 1)];
+          }
+        }
+      }
+    });
   });
 })
