@@ -89,7 +89,7 @@
             </div>
             <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
             <div class="pages navbar-through toolbar-through">
-                <div data-page="index" class="page">
+                <div data-page="login" class="page">
                     <!-- Scrollable page content -->
                     <div class="page-content">
                         <div class="content-block">
@@ -100,7 +100,7 @@
                                             <div class="item-inner">
                                                 <div class="item-title label">Username</div>
                                                 <div class="item-input">
-                                                    <input type="text" name="username" placeholder="Your username">
+                                                    <input type="text" id="username" name="username" placeholder="Your username">
                                                 </div>
                                             </div>
                                         </li>
@@ -108,7 +108,7 @@
                                             <div class="item-inner">
                                                 <div class="item-title label">Password</div>
                                                 <div class="item-input">
-                                                    <input type="password" name="password" placeholder="Your password">
+                                                    <input type="password"  id="pass" name="password" placeholder="Your password">
                                                 </div>
                                             </div>
                                         </li>
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="list-block">
                                     <ul>
-                                        <li><a href="#" class="item-link list-button">Sign In</a></li>
+                                        <li><a href="#" id="login-box-link" class="item-link list-button">Sign In</a></li>
                                     </ul>
                                     <div class="list-block-label">
                                     </div>
@@ -143,6 +143,7 @@
     <script type="text/javascript" src="js/controllers/post_list.js"></script>
     <script type="text/javascript" src="js/controllers/register.js"></script>
     <script type="text/javascript" src="js/controllers/jobpost.js"></script>
+    <script type="text/javascript" src="js/controllers/login.js"></script>
 
 
     <script type="text/javascript" src="js/gmaps.js"></script>
