@@ -38,12 +38,17 @@ myApp.onPageInit('post', function (page) {
 })
 
 myApp.onPageInit('postList', function (page) {
+
+    if (!window.user) {
+        myApp.alert("Please Log In to Contact Users.");
+    }
+
     var posts = [];
     var changes = 0;
 
     var myList = myApp.virtualList('.postlist', {
         items: posts,
-        template: cardTemplateDistance
+        template: window.user ? cardTemplateDistance : cardTemplate3
     });
 
     $$.ajax({
@@ -200,6 +205,21 @@ const cardTemplate2 =
     '   </div>' +
     '</div >';
 
+const cardTemplate3 =
+    '<div class="card" >' +
+    '   <div style="background-image:url({{season}})" valign="bottom" class="card-header color-white"></div>' +
+    '       <div class="card-content">' +
+    '           <div class="card-content-inner">' +
+    '               <p class="color-gray">Posted on {{date}}</p>' +
+    '               <h3 class=card-title">{{title}}</h3>' +
+    '               <p>{{text}}</p>' +
+    '           </div>' +
+    '       </div>' +
+    '   <div class="card-footer">' +
+    '   <a href="post.html?postID={{postID}}" class="button">Map</a>' +
+    '   </div>' +
+    '</div >';
+
 
 const cardTemplateDistance =
     '<div class="card" >' +
@@ -220,6 +240,8 @@ const cardTemplateDistance =
 
 
 //Helper FUnctions
+
+
 var getUser = function (email, users) {
     var currentUser;
     for (var t = 0; t < users.length; t++) {
