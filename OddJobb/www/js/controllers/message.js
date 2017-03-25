@@ -20,7 +20,6 @@ myApp.onPageInit('messages', function (page) {
   '</div>' +
   '</li>';
 
-
   //Will be reading this from the database
   //Get list of users
   $.get('http://oddjobbackend.herokuapp.com/users', function(data) {

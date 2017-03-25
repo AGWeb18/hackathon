@@ -1,0 +1,14 @@
+.card-header {
+    height: 10vw;
+    background-size: cover;
+    background-position: center;
+}
+
+h3 {
+    -webkit-margin-before:0em;
+    -webkit-margin-after:0em;
+}
+
+ul {
+    padding: 0;
+}

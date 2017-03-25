@@ -1,36 +1,9 @@
 // Initialize app
 var myApp = new Framework7({
     swipePanel: 'left'
-	
+
 });
 
-myApp.onPageInit('defaultpage', function (page) {
-    myApp.params.swipePanel = false;
-	new GMaps({
-	  div: '#map',
-	  lat: -12.043333,
-	  lng: -77.028333 
-	}); 
-	$$('#addressButton').on('click', function (e){
-		address();
-	});
-});
-
-function address(){         
-GMaps.geocode({
-			  address: $('#address').val(),
-			  callback: function(results, status) {
-				if (status == 'OK') {
-				  var latlng = results[0].geometry.location;
-				  map.setCenter(latlng.lat(), latlng.lng());
-				  map.addMarker({
-					lat: latlng.lat(),
-					lng: latlng.lng()
-				  });
-				}
-			  }
-			});
-}
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
@@ -41,123 +14,93 @@ var mainView = myApp.addView('.view-main', {
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
+  window.user = false;
+  window.login = false;
+  document.getElementById('createPost').style.visibility = 'hidden';
+  document.getElementById('viewMessages').style.visibility = 'hidden';
+  document.getElementById('profile').style.visibility = 'hidden';
+  document.getElementById('logout').style.visibility = 'hidden';
     console.log("Device is ready!");
+    $.get('https://oddjobbackend.herokuapp.com/users', function(data){
+      users = data;
+      console.log(users);
+      window.MyLib = users;
+
+    });
+    $$('#login-box-link').on('click', function(e){
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('pass').value;
+      var users = window.MyLib;
+
+      console.log('users',users);
+      if(username === '') {
+        myApp.alert('Oops! You left your username blank');
+
+      }
+
+      else if(password === '') {
+        myApp.alert('Oops! You left your password blank');
+
+
+      }
+      else if(isPasswordCorrect(username, password, users)) {
+        //set global variable to indicate correct login
+        myApp.alert('Welcome ' + username + '! You are now logged in.');
+        window.user = username;
+        window.login = true;
+        document.getElementById('createPost').style.visibility = 'visible';
+        document.getElementById('viewMessages').style.visibility = 'visible';
+        document.getElementById('profile').style.visibility = 'visible';
+        document.getElementById('logout').style.visibility = 'visible';
+      }
+
+      else {
+
+        myApp.alert('Incorrect password!');
+
+      }
+
+    });
 });
 
 
+function isPasswordCorrect(username, password, users) {
+  for(var i=0; i < users.length; i++) {
+    if(users[i].email === username && users[i].password === password) {
+      return true;
 
-// Now we need to run the code that will be executed only for About page.
-
-// Option 1. Using page callback for page (for "about" page in this case) (recommended way):
-myApp.onPageInit('about', function (page) {
-    // Do something here for "about" page
-    myApp.alert('Here comes About page');
-})
-
-//Each message Page
-myApp.onPageInit('indMsg', function (page) {
-    var queryParams = page.query["messageId"];
-    var title = document.getElementById("currentPerson");
-    title.innerHTML = queryParams;
-    messagesMain(queryParams);
-})
-
-
-//Messages Page
-myApp.onPageInit('messages', function (page) {
-
-    //Will be reading this from the database
-    const people = [{ item: "Mateo" }, { item: "Holly" }, { item: "Anthony" }, { item: "Haowei" }];
-
-    const myListOfPeople = myApp.virtualList('.list-block.virtual-list', {
-        items: people,
-        template:
-        '<li>' +
-        '<a href="indMsg.html?messageId={{item}}" class="item-link item-content">' +
-        '<div>{{item}}</div>' +
-        '</a>' +
-        '</div>' +
-        '</li>'
-    });
-})
-
-myApp.onPageInit('post', function (page) {
-    /*
-         1. Do AJAX call to get post based on postID
-         2. Generate post data!
-         */
-
-
-    const testPost = {
-        season: 'img/green.jpg',
-        title: 'Grass Mowing Required',
-        date: 'January 21, 2015',
-        text: 'Guys please help my grass is growing too large'
     }
 
-    const posts = [];
+    else if(users[i].email === username) {
 
-    if (page.query) {
-        console.log(page.query);
-        posts.push(testPost);
+      return false;
 
-
-    } else {
-        posts.push(testPost);
-        posts.push(testPost);
-        posts.push(testPost);
     }
 
 
-    const myList = myApp.virtualList('.list-block.virtual-list.cardslist', {
-        items: posts,
-        template:
-        '<div class="card demo-card-header-pic" >' +
-        '   <div style="background-image:url(img/green.jpg)" valign="bottom" class="card-header color-white no-border"></div>' +
-        '       <div class="card-content">' +
-        '           <div class="card-content-inner">' +
-        '               <h1>Grass Mowing Required</h1>' +
-        '               <p class="color-gray">Posted on January 21, 2015</p>' +
-        '               <p>Quisque eget vestibulum nulla...</p>' +
-        '           </div>' +
-        '       </div>' +
-        '   <div class="card-footer">' +
-        '   <a href="#" class="button button-big">Contact</a>' +
-        '   <a href="#" class="button button-big">Map</a>' +
-        '   </div>' +
-        '</div >'
-    });
-})
+  }
 
-myApp.onPageInit('postList', function (page) {
-    console.log('posted!');
 
-    /*
-    1. Do AJAX call
-    2. Put data into Array
-    3. Set array
-    */
-    const posts = [
-        /*
-        {
-            title: 'Need people to show shovel for me tomorrow!',
-            text: 'House is not too large, so should not be an issue!',
-            price: '5',*/
-    ];
+}
 
-    for (var i = 0; i < 50; i++) {
-        posts.push({
-            item: i
-        });
-    }
+function logout(e) {
 
-    const myList = myApp.virtualList('.list-block.virtual-list.postlist', {
-        items: posts,
-        template:
-        '<li>' +
-        '   <a href="post.html?postID={{item}}" class="item-link item-content">' +
-        '       <div>{{item}}</div>' +
-        '   </a>' +
-        '</li>'
-    });
-})
+  if(window.login === true) {
+    myApp.alert('Goodbye '+ window.user + ' You have been logged out!');
+    window.user = false;
+    window.login = false;
+    document.getElementById('createPost').style.visibility = 'hidden';
+    document.getElementById('viewMessages').style.visibility = 'hidden';
+    document.getElementById('profile').style.visibility = 'hidden';
+    document.getElementById('logout').style.visibility = 'hidden';
+  }
+
+  else {
+    myApp.alert('You can\'t log out if you\'re not logged in');
+
+
+  }
+
+
+
+}

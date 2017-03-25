@@ -61,6 +61,7 @@ var deleteAllMsgs = function(){
       $.del("http://oddjobbackend.herokuapp.com/deleteMessage/" + curMsg["_id"], function(data){
         console.log("Message " + curMsgs["id"] + " deleted.");
       });
+
     }
   });
 
@@ -103,6 +104,7 @@ var getMessages = function (personEmail, seeMessages, callback) {
 
   });
   return pMsgs;
+
 }
 
 var newId = function(range){

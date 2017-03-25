@@ -8,3 +8,7 @@
 .visible{
     display: inline;
 }
+
+.abs{
+	position: absolute;
+}
