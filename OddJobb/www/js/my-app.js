@@ -17,7 +17,6 @@ $$(document).on('deviceready', function () {
 });
 
 
-
 // Now we need to run the code that will be executed only for About page.
 
 // Option 1. Using page callback for page (for "about" page in this case) (recommended way):
@@ -29,17 +28,22 @@ myApp.onPageInit('about', function (page) {
 
 //Each message Page
 myApp.onPageInit('indMsg', function (page) {
-    var queryParams = page.query["messageId"];
+    hideAll();
+    var person = page.query["messageId"];
     var title = document.getElementById("currentPerson");
-    title.innerHTML = queryParams;
-    messagesMain(queryParams);
+    title.innerHTML = person;
+    loadMessages(person);
+    messagesMain(person);
 })
 
 //Messages Page
 myApp.onPageInit('messages', function (page) {
 
     //Will be reading this from the database
-    const people = [{ item: "Mateo" }, { item: "Holly" }, { item: "Anthony" }, { item: "Haowei" }];
+    var temp;
+    httpGet();
+    
+    const people = [{ item: "Mateo" }, { item: "Holly" }, { item: "Anthony" }, { item: "Haowei" }, { item: "Kate" }];
 
     const myListOfPeople = myApp.virtualList('.list-block.virtual-list', {
         items: people,
@@ -98,3 +102,10 @@ myApp.onPageInit('postList', function (page) {
         '</li>'
     });
 })
+
+
+function httpGet(){
+    $.get('http://oddjobbackend.herokuapp.com/users', function (data) {
+        console.log(data);
+    });
+}

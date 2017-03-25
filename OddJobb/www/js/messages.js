@@ -22,10 +22,6 @@ function messagesMain(queryParams) {
     var msgBar = msgHandler.messagebar('.messagebar');
     var currentMsg = "";
 
-    //Have to read from api to know which user to read from
-    //console.log(queryParams);
-    //loadMessages(queryParams);
-
     //Really only applicable to desktop version
     $$('.messagebar').on('keypress', function (e) {
         if (e.keyCode === 13) {
