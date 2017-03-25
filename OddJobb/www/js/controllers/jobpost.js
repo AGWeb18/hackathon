@@ -13,7 +13,7 @@ myApp.onPageInit('post', function (page) {
                     posts.push({
                         title: post.title,
                         date: new Date(post.postDate).toDateString(),
-                        season: 'img/green.jpg',
+                        season: 'img/white.jpg',
                         text: post.content,
                         creator: post.creator,
                         postalCode: post.postalCode,
@@ -89,7 +89,6 @@ myApp.onPageInit('postList', function (page) {
                 }
             }
         });
-        console.log(posts);
     });
 })
 
@@ -106,7 +105,7 @@ myApp.onPageInit('myPosts', function (page) {
                     posts.push({
                         title: post.title,
                         date: new Date(post.postDate).toDateString(),
-                        season: 'img/green.jpg',
+                        season: 'img/white.jpg',
                         text: post.content,
                         postalCode: post.postalCode,
                         creator: post.creator,
@@ -114,7 +113,7 @@ myApp.onPageInit('myPosts', function (page) {
                     })
                 }
             });
-            const myList = myApp.virtualList('.my-postlist', {
+            const myList = myApp.virtualList('.mypostlist', {
                 items: posts,
                 template: cardTemplate
             });
@@ -153,11 +152,7 @@ function getAddresses(postList, latlong, callbackFn) {
                         lng: latlng.lng
                     };
                     post.distance = calcDistance(postCoords, latlong);
-                    console.log(post.distance);
                     callbackFn();
-                }
-                else {
-                    console.log(post.postID);
                 }
             }
         });
@@ -225,7 +220,6 @@ var getUser = function (email, users) {
     var currentUser;
     for (var t = 0; t < users.length; t++) {
         currentUser = users[t];
-        console.log(currentUser);
         if (currentUser.email === email) {
             return currentUser.firstName;
         }
