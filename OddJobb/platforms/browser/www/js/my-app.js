@@ -16,7 +16,6 @@ var mainView = myApp.addView('.view-main', {
 $$(document).on('deviceready', function () {
   window.user = false;
   window.login = false;
-  document.getElementById('myPost').style.display = 'none';
   document.getElementById('createPost').style.display = 'none';
   document.getElementById('viewMessages').style.display = 'none';
   document.getElementById('profile').style.display = 'none';
@@ -49,12 +48,12 @@ $$(document).on('deviceready', function () {
         myApp.alert('Welcome ' + username + '! You are now logged in.', "Welcome");
         window.user = username;
         window.login = true;
-        document.getElementById('myPost').style.display = 'block';
         document.getElementById('createPost').style.display = 'block';
         document.getElementById('viewMessages').style.display = 'block';
         document.getElementById('profile').style.display = 'block';
         document.getElementById('logout').style.display = 'block';
         mainView.router.loadPage({url:'postList.html', ignoreCache:true, reload:true });
+
       }
 
       else {
@@ -70,8 +69,6 @@ $$(document).on('deviceready', function () {
 function isPasswordCorrect(username, password, users) {
   for(var i=0; i < users.length; i++) {
     if(users[i].email === username && users[i].password === password) {
-      window.firstname = users[i].firstName;
-      window.lastname = users[i].lastName;
       return true;
 
     }
@@ -94,14 +91,17 @@ function logout(e) {
     window.login = false;
     document.getElementById('createPost').style.display = 'none';
     document.getElementById('viewMessages').style.display = 'none';
-    document.getElementById('myPost').style.display = 'none';
     document.getElementById('profile').style.display = 'none';
     document.getElementById('logout').style.display = 'none';
-    document.getElementById('myPost').style.display = 'none';
     mainView.router.loadPage({url:'index.html', ignoreCache:true, reload:true });
   }
 
   else {
     myApp.alert('You can\'t log out if you\'re not logged in');
+
+
   }
+
+
+
 }

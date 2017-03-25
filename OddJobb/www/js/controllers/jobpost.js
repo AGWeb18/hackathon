@@ -41,16 +41,20 @@ myApp.onPageInit('postList', function (page) {
         url: 'http://oddjobbackend.herokuapp.com/posts',
         method: 'GET',
         success: (response) => {
+          $.get("http://oddjobbackend.herokuapp.com/users", function(data){
             let postsList = JSON.parse(response).reverse();
             postsList.forEach((post) => {
-                if (post.endDate) {
+              var user = getUser(post.creator, data);
+                if (post.title) {
                     posts.push({
                         title: post.title,
                         date: new Date(post.postDate).toDateString(),
                         season: 'img/green.jpg',
                         text: post.content,
                         creator: post.creator,
-                        postID: post._id
+                        postID: post._id,
+                        item: user,
+                        email: window.user
                     })
                 }
             });
@@ -58,6 +62,8 @@ myApp.onPageInit('postList', function (page) {
                 items: posts,
                 template: cardTemplate
             });
+          })
+
         }
     });
     //  postPost();
@@ -133,7 +139,7 @@ const cardTemplate =
     '       </div>' +
     '   <div class="card-footer">' +
     '   <a href="post.html?postID={{postID}}" class="button">Map</a>' +
-    '   <a href="#" class="button">Contact</a>' +
+    '   <a href="indMsg.html?personName={{item}}&email={{email}}" class="button">Contact</a>' +
     '   </div>' +
     '</div >';
 
@@ -151,3 +157,18 @@ const cardTemplate2 =
     '   <a href="#" class="button">Contact</a>' +
     '   </div>' +
     '</div >';
+
+
+//Helper FUnctions
+var getUser = function(email, users){
+  var currentUser;
+  for(var t = 0; t < users.length; t++){
+    currentUser = users[t];
+    console.log(currentUser);
+    if (currentUser.email === email) {
+      return currentUser.firstName;
+    }
+  }
+  return false;
+
+} 
