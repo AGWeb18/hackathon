@@ -82,9 +82,7 @@ function isPasswordCorrect(username, password, users) {
 
     }
 
-
   }
-
 
 }
 

@@ -1,4 +1,5 @@
 myApp.onPageInit('post', function (page) {
+
     myApp.params.swipePanel = false;
     const posts = [];
 
