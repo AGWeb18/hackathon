@@ -45,8 +45,7 @@ function messagesMain(queryParams) {
             name: "Mateo",
             id: queryParams
         }, "append", true);
-
-        console.log("Message Sent");
+        console.log("message sent"); 
     }
 
     printErr(error);
