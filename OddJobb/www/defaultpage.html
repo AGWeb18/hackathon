@@ -1,0 +1,33 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax. -->
+<!-- Top Navbar-->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="defaultpage.html" class="back link">
+                <i class="icon icon-back"></i>
+                <span>Back</span>
+            </a>
+        </div>
+        <div class="center sliding">View Postings</div>
+        <div class="right">
+            <a href="defaultpage.html" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+        </div>
+    </div>
+</div>
+<div class="pages">
+    <div data-page="defaultpage" class="page">
+        <div class="page-content">
+            <div class="content-block">
+				<form method="post" id="geocoding_form">
+				  <label for="address">Address:</label>
+				  <div class="input">
+					<input type="text" id="address" name="address">
+					<input type="button" id="addressButton" value="Search">
+				  </div>
+				</form>
+                <div id="map">
+				</div>	
+            </div>
+        </div>
+    </div>
+</div>				

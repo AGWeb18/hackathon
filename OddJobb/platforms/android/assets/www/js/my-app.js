@@ -1,7 +1,36 @@
 // Initialize app
-var myApp = new Framework7();
+var myApp = new Framework7({
+    swipePanel: 'left'
+	
+});
 
+myApp.onPageInit('defaultpage', function (page) {
+    myApp.params.swipePanel = false;
+	new GMaps({
+	  div: '#map',
+	  lat: -12.043333,
+	  lng: -77.028333 
+	}); 
+	$$('#addressButton').on('click', function (e){
+		address();
+	});
+});
 
+function address(){         
+GMaps.geocode({
+			  address: $('#address').val(),
+			  callback: function(results, status) {
+				if (status == 'OK') {
+				  var latlng = results[0].geometry.location;
+				  map.setCenter(latlng.lat(), latlng.lng());
+				  map.addMarker({
+					lat: latlng.lat(),
+					lng: latlng.lng()
+				  });
+				}
+			  }
+			});
+}
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
@@ -12,48 +41,103 @@ var mainView = myApp.addView('.view-main', {
 });
 
 // Handle Cordova Device Ready Event
-$$(document).on('deviceready', function() {
+$$(document).on('deviceready', function () {
     console.log("Device is ready!");
 });
 
 
-$(".email-signup").hide();
-$("#signup-box-link").click(function(){
-  $(".email-login").fadeOut(100);
-  $(".email-signup").delay(100).fadeIn(100);
-  $("#login-box-link").removeClass("active");
-  $("#signup-box-link").addClass("active");
-});
-$("#login-box-link").click(function(){
-  $(".email-login").delay(100).fadeIn(100);;
-  $(".email-signup").fadeOut(100);
-  $("#login-box-link").addClass("active");
-  $("#signup-box-link").removeClass("active");
-});
 
 // Now we need to run the code that will be executed only for About page.
 
 // Option 1. Using page callback for page (for "about" page in this case) (recommended way):
 myApp.onPageInit('about', function (page) {
     // Do something here for "about" page
+    myApp.alert('Here comes About page');
+})
 
+
+//Each message Page
+myApp.onPageInit('indMsg', function (page) {
+    messagesMain();
 })
 
 //Messages Page
 myApp.onPageInit('messages', function (page) {
-    messagesMain();
+    //messagesMain();
+    /*
+    1. Do AJAX call
+    2. Put data into Array
+    3. Set array
+    */
+    const people = [
+        /*
+        {
+            name: nameOfPerson
+            message: This is a mess...
+            
+        }*/
+    ];
 
-})
-
-
-// Option 2. Using one 'pageInit' event handler for all pages:
-$$(document).on('pageInit', function (e) {
-    // Get page data from event data
-    var page = e.detail.page;
-
-    if (page.name === 'about') {
-        // Following code will be executed for page with data-page attribute equal to "about"
-        myApp.alert('Here comes About page');
+    for (var i = 0; i < 10; i++) {
+        people.push({
+            item: i
+        });
     }
+
+    const myListOfPeople = myApp.virtualList('.list-block.virtual-list', {
+        items: people,
+        template:
+        '<li>' +
+        '<a href="indMsg.html?messageId={{item}}" class="item-link item-content">' +
+        '<div>{{item}}</div>' +
+        '</a>' +
+        '</div>' +
+        '</li>'
+    });
 })
 
+myApp.onPageInit('post', function (page) {
+    console.log(page.query);
+    /* 
+    1. Do AJAX call to get post based on postID
+    2. Generate post data!
+    */
+
+})
+
+myApp.onPageInit('postList', function (page) {
+    console.log('posted!');
+
+    /*
+    1. Do AJAX call
+    2. Put data into Array
+    3. Set array
+    */
+    const posts = [
+        /*
+        {
+            title: 'Need people to show shovel for me tomorrow!',
+            text: 'House is not too large, so should not be an issue!',
+            price: '5',
+            postalCode: '5'
+            
+        }*/
+    ];
+
+    for (var i = 0; i < 50; i++) {
+        posts.push({
+            item: i
+        });
+    }
+
+    const myList = myApp.virtualList('.list-block.virtual-list', {
+        items: posts,
+        template:
+        '<li>' +
+        '<a href="post.html?postID={{item}}" class="item-link item-content">' +
+        '<div>{{item}}</div>' +
+        '</a>' +
+        '</div>' +
+        '</li>'
+    });
+})
