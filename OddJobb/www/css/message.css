@@ -1,0 +1,10 @@
+﻿body {
+}
+
+.hidden{
+    display: none;
+}
+
+.visible{
+    display: inline;
+}
