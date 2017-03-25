@@ -69,6 +69,8 @@ $$(document).on('deviceready', function () {
 function isPasswordCorrect(username, password, users) {
   for(var i=0; i < users.length; i++) {
     if(users[i].email === username && users[i].password === password) {
+      window.firstname = users[i].firstName;
+      window.lastname = users[i].lastName;
       return true;
 
     }
