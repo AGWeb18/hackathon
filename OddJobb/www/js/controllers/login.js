@@ -35,6 +35,7 @@ myApp.onPageInit('login', function (page) {
           document.getElementById('viewMessages').style.display = 'block';
           document.getElementById('profile').style.display = 'block';
           document.getElementById('logout').style.display = 'block';
+          document.getElementById('myPost').style.display = 'block';
           mainView.router.loadPage({url:'postList.html', ignoreCache:true, reload:true });
         }
 

@@ -49,7 +49,7 @@ $$(document).on('deviceready', function () {
         myApp.alert('Welcome ' + username + '! You are now logged in.', "Welcome");
         window.user = username;
         window.login = true;
-        document.getElementById('myPost').style.display = 'block';      
+        document.getElementById('myPost').style.display = 'block';
         document.getElementById('createPost').style.display = 'block';
         document.getElementById('viewMessages').style.display = 'block';
         document.getElementById('profile').style.display = 'block';
@@ -96,8 +96,10 @@ function logout(e) {
     window.login = false;
     document.getElementById('createPost').style.display = 'none';
     document.getElementById('viewMessages').style.display = 'none';
+    document.getElementById('myPost').style.display = 'none';
     document.getElementById('profile').style.display = 'none';
     document.getElementById('logout').style.display = 'none';
+    document.getElementById('myPost').style.display = 'none';
     mainView.router.loadPage({url:'index.html', ignoreCache:true, reload:true });
   }
 
