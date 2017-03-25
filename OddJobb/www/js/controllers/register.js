@@ -26,17 +26,17 @@ function submitRegistration() {
   var existsFlag = 0;
   //checking validation
   if(firstName === '') {
-    myApp.alert('Cannot leave First Name blank');
+    myApp.alert('Cannot leave First Name blank', "Missing firstName");
 
   }
 
   else if(lastName === '') {
-    myApp.alert("Cannot leave Last Name blank");
+    myApp.alert("Cannot leave Last Name blank", "Missing Last Name");
 
   }
 
   else if(email === '') {
-    myApp.alert("Cannot leave email blank");
+    myApp.alert("Cannot leave email blank", "Missing Email");
 
   }
   else if(emailReg.test(email) === false) {
@@ -46,18 +46,18 @@ function submitRegistration() {
 
 
   else if(phone === '') {
-    myApp.alert("Cannot leave phone number blank");
+    myApp.alert("Cannot leave phone number blank", "Missing Phone");
 
   }
 
   else if(phoneReg.test(phone) === false) {
-    myApp.alert("Invalid phone number");
+    myApp.alert("Invalid phone number", "Invalid");
 
   }
 
   else if(password === '') {
 
-    myApp.alert("Cannot leave password blank");
+    myApp.alert("Cannot leave password blank", "Blank Password");
   }
 
   else {
@@ -66,7 +66,7 @@ function submitRegistration() {
     var url = 'https://oddjobbackend.herokuapp.com/newUser?firstName=' + firstName + '&lastName=' + lastName + '&email=' + email + '&phone=' + phone + '&password=' + password;
     console.log('url', url);
     if(doesUserExist(email,currentUsers)){
-      myApp.alert("Error, the current email address is already being used.");
+      myApp.alert("Error, the current email address is already being used.", "Existing User");
 
     }
 
@@ -76,6 +76,14 @@ function submitRegistration() {
         console.log(result);
 
       });
+
+      myApp.alert('Congratulations! You are registered! You can now log in!', "Welcome");
+      $.get('https://oddjobbackend.herokuapp.com/users', function(data){
+
+        window.MyLib = data;
+
+      });
+      mainView.router.loadPage({url:'index.html'});
 
     }
   }

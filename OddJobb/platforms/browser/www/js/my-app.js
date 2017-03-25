@@ -16,10 +16,10 @@ var mainView = myApp.addView('.view-main', {
 $$(document).on('deviceready', function () {
   window.user = false;
   window.login = false;
-  document.getElementById('createPost').style.visibility = 'hidden';
-  document.getElementById('viewMessages').style.visibility = 'hidden';
-  document.getElementById('profile').style.visibility = 'hidden';
-  document.getElementById('logout').style.visibility = 'hidden';
+  document.getElementById('createPost').style.display = 'none';
+  document.getElementById('viewMessages').style.display = 'none';
+  document.getElementById('profile').style.display = 'none';
+  document.getElementById('logout').style.display = 'none';
     console.log("Device is ready!");
     $.get('https://oddjobbackend.herokuapp.com/users', function(data){
       users = data;
@@ -45,18 +45,20 @@ $$(document).on('deviceready', function () {
       }
       else if(isPasswordCorrect(username, password, users)) {
         //set global variable to indicate correct login
-        myApp.alert('Welcome ' + username + '! You are now logged in.');
+        myApp.alert('Welcome ' + username + '! You are now logged in.', "Welcome");
         window.user = username;
         window.login = true;
-        document.getElementById('createPost').style.visibility = 'visible';
-        document.getElementById('viewMessages').style.visibility = 'visible';
-        document.getElementById('profile').style.visibility = 'visible';
-        document.getElementById('logout').style.visibility = 'visible';
+        document.getElementById('createPost').style.display = 'block';
+        document.getElementById('viewMessages').style.display = 'block';
+        document.getElementById('profile').style.display = 'block';
+        document.getElementById('logout').style.display = 'block';
+        mainView.router.loadPage({url:'postList.html', ignoreCache:true, reload:true });
+
       }
 
       else {
 
-        myApp.alert('Incorrect password!');
+        myApp.alert('Incorrect password!', 'Error!');
 
       }
 
@@ -86,13 +88,14 @@ function isPasswordCorrect(username, password, users) {
 function logout(e) {
 
   if(window.login === true) {
-    myApp.alert('Goodbye '+ window.user + ' You have been logged out!');
+    myApp.alert('Goodbye '+ window.user + ' You have been logged out!', "Goodbye!");
     window.user = false;
     window.login = false;
-    document.getElementById('createPost').style.visibility = 'hidden';
-    document.getElementById('viewMessages').style.visibility = 'hidden';
-    document.getElementById('profile').style.visibility = 'hidden';
-    document.getElementById('logout').style.visibility = 'hidden';
+    document.getElementById('createPost').style.display = 'none';
+    document.getElementById('viewMessages').style.display = 'none';
+    document.getElementById('profile').style.display = 'none';
+    document.getElementById('logout').style.display = 'none';
+    mainView.router.loadPage({url:'index.html', ignoreCache:true, reload:true });
   }
 
   else {

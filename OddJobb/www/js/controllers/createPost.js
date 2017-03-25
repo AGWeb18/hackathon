@@ -34,6 +34,8 @@ myApp.onPageInit('createPost', function (page) {
 
         });
 
+        mainView.router.loadPage({url:'postList.html' });
+
 
       }
 
