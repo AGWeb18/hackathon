@@ -68,7 +68,30 @@ myApp.onPageInit('myPosts', function (page) {
         id: '1234'
     };
 
-
+    const posts = [];
+    $$.ajax({
+        url: 'http://oddjobbackend.herokuapp.com/posts',
+        method: 'GET',
+        success: (response) => {
+            let postsList = JSON.parse(response);
+            postsList.forEach((post) => {
+                if (post.title ) {
+                    posts.push({
+                        title: post.title,
+                        date: 'January 1 2015',
+                        season: 'img/white.jpg',
+                        text: post.content,
+                        creator: post.creator,
+                        postID: post._id
+                    })
+                }
+            });
+            const myList = myApp.virtualList('.postlist', {
+                items: posts,
+                template: cardTemplate
+            });
+        }
+    });
 });
 
 
