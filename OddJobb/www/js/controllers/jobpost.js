@@ -45,16 +45,13 @@ myApp.onPageInit('postList', function (page) {
             let postsList = JSON.parse(response).reverse();
             postsList.forEach((post) => {
                 if (post.title) {
-                  console.log(window.firstname + " " + window.user)
                     posts.push({
                         title: post.title,
                         date: new Date(post.postDate).toDateString(),
                         season: 'img/green.jpg',
                         text: post.content,
                         creator: post.creator,
-                        postID: post._id,
-                        userName: window.name,
-                        email: post.email
+                        postID: post._id
                     })
                 }
             });
@@ -152,6 +149,6 @@ const cardTemplate2 =
     '           </div>' +
     '       </div>' +
     '   <div class="card-footer">' +
-    '   <a href="indMsg.html?personName={{userName}}&email={{email}}" class="button">Contact</a>' +
+    '   <a href="#" class="button">Contact</a>' +
     '   </div>' +
     '</div >';
