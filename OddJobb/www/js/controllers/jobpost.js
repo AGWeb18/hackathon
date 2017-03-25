@@ -16,12 +16,11 @@ myApp.onPageInit('post', function (page) {
                         season: 'img/green.jpg',
                         text: post.content,
                         creator: post.creator,
+                        postalCode: post.postalCode,
                         postID: post._id
                     })
                     map = new GMaps({
                         div: '#map',
-                        lat: -12.043333,
-                        lng: -77.028333
                     });
                     address(post.postalCode);
                 }
@@ -34,9 +33,15 @@ myApp.onPageInit('post', function (page) {
     });
 })
 
-
 myApp.onPageInit('postList', function (page) {
-    const posts = [];
+    var posts = [];
+    var changes = 0;
+
+    var myList = myApp.virtualList('.postlist', {
+        items: posts,
+        template: cardTemplateDistance
+    });
+
     $$.ajax({
         url: 'http://oddjobbackend.herokuapp.com/posts',
         method: 'GET',
@@ -49,24 +54,42 @@ myApp.onPageInit('postList', function (page) {
                     posts.push({
                         title: post.title,
                         date: new Date(post.postDate).toDateString(),
+                        postalCode: post.postalCode,
                         season: 'img/green.jpg',
                         text: post.content,
                         creator: post.creator,
                         postID: post._id,
                         item: user,
-                        email: window.user
+                        email: window.user,
+                        distance: ''
                     })
                 }
             });
-            const myList = myApp.virtualList('.postlist', {
-                items: posts,
-                template: cardTemplate
-            });
-          })
-
+            myList.replaceAllItems(posts);
         }
     });
-    //  postPost();
+
+    const notify = () => {
+        changes++;
+        posts = posts.sort(function (post1, post2) {
+            return parseInt(post1.distance) - parseInt(post2.distance);
+        });
+        myList.replaceAllItems(posts);
+    }
+
+    $$('#get-address').click(function () {
+        const postalCode = $$('#distance-address').val();
+        GMaps.geocode({
+            address: postalCode,
+            callback: function (results, status) {
+                if (status == 'OK') {
+                    var latlng = results[0].geometry.location;
+                    getAddresses(posts, { lat: latlng.lat, lng: latlng.lng }, notify);
+                }
+            }
+        });
+        console.log(posts);
+    });
 })
 
 
@@ -84,6 +107,7 @@ myApp.onPageInit('myPosts', function (page) {
                         date: new Date(post.postDate).toDateString(),
                         season: 'img/green.jpg',
                         text: post.content,
+                        postalCode: post.postalCode,
                         creator: post.creator,
                         postID: post._id
                     })
@@ -114,16 +138,34 @@ function address(adr) {
     });
 }
 
+function getAddresses(postList, latlong, callbackFn) {
+    const latlngList = [];
 
+    postList.forEach((post) => {
+        GMaps.geocode({
+            address: post.postalCode,
+            callback: function (results, status) {
+                if (status == 'OK') {
+                    var latlng = results[0].geometry.location;
+                    const postCoords = {
+                        lat: latlng.lat,
+                        lng: latlng.lng
+                    };
+                    post.distance = calcDistance(postCoords, latlong);
+                    console.log(post.distance);
+                    callbackFn();
+                }
+                else {
+                    console.log(post.postID);
+                }
+            }
+        });
+    })
+    return latlngList;
+}
 
-function postPost() {
-    $$.ajax({
-        url: `http://oddjobbackend.herokuapp.com/newPost?title=${'snow mowing required'}&creator=${1234}&content=${'guys please help my snow is too large'}&uniqueID=${'asdf'}&category${'summer'}&postalCode=${'L2N 2H4'}`,
-        method: 'POST',
-        success: (response) => {
-            console.log(response);
-        }
-    });
+function calcDistance(p1, p2) {
+    return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 10).toFixed(2) + 'm';
 }
 
 
@@ -154,7 +196,25 @@ const cardTemplate2 =
     '           </div>' +
     '       </div>' +
     '   <div class="card-footer">' +
-    '   <a href="#" class="button">Contact</a>' +
+    '   <a href="indMsg.html?personName={{item}}&email={{email}}" class="button">Contact</a>' +
+    '   </div>' +
+    '</div >';
+
+
+const cardTemplateDistance =
+    '<div class="card" >' +
+    '   <div style="background-image:url({{season}})" valign="bottom" class="card-header color-white"></div>' +
+    '       <div class="card-content">' +
+    '           <div class="card-content-inner">' +
+    '               <p class="color-gray">Posted on {{date}}</p>' +
+    '               <h3 class=card-title">{{title}}</h3>' +
+    '               <p>{{text}}</p>' +
+    '               <h3 class=right>Distance: {{distance}} </h3>' +
+    '           </div>' +
+    '       </div>' +
+    '   <div class="card-footer">' +
+    '       <a href="post.html?postID={{postID}}" class="button">Map</a>' +
+    '   <a href="indMsg.html?personName={{item}}&email={{email}}" class="button">Contact</a>' +
     '   </div>' +
     '</div >';
 
