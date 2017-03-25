@@ -59,6 +59,7 @@ myApp.onPageInit('indMsg', function (page) {
     messagesMain();
 })
 
+
 //Messages Page
 myApp.onPageInit('messages', function (page) {
     //messagesMain();

@@ -56,31 +56,18 @@ myApp.onPageInit('about', function (page) {
 
 //Each message Page
 myApp.onPageInit('indMsg', function (page) {
-    messagesMain();
+    var queryParams = page.query["messageId"];
+    var title = document.getElementById("currentPerson");
+    title.innerHTML = queryParams;
+    messagesMain(queryParams);
 })
+
 
 //Messages Page
 myApp.onPageInit('messages', function (page) {
-    //messagesMain();
-    /*
-    1. Do AJAX call
-    2. Put data into Array
-    3. Set array
-    */
-    const people = [
-        /*
-        {
-            name: nameOfPerson
-            message: This is a mess...
-            
-        }*/
-    ];
 
-    for (var i = 0; i < 10; i++) {
-        people.push({
-            item: i
-        });
-    }
+    //Will be reading this from the database
+    const people = [{ item: "Mateo" }, { item: "Holly" }, { item: "Anthony" }, { item: "Haowei" }];
 
     const myListOfPeople = myApp.virtualList('.list-block.virtual-list', {
         items: people,
