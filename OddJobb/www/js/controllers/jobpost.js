@@ -37,6 +37,7 @@ myApp.onPageInit('post', function (page) {
 
 myApp.onPageInit('postList', function (page) {
     const posts = [];
+    var finalTemplate = cardTemplate;
     $$.ajax({
         url: 'http://oddjobbackend.herokuapp.com/posts',
         method: 'GET',
@@ -54,13 +55,17 @@ myApp.onPageInit('postList', function (page) {
                         creator: post.creator,
                         postID: post._id,
                         item: user,
-                        email: window.user
+                        email: post.creator
                     })
                 }
             });
+            if(!window.user){
+              finalTemplate = cardTemplate3;
+              myApp.alert("Please Log In, to contact user.")
+            }
             const myList = myApp.virtualList('.postlist', {
                 items: posts,
-                template: cardTemplate
+                template: finalTemplate
             });
           })
 
@@ -97,36 +102,7 @@ myApp.onPageInit('myPosts', function (page) {
     });
 });
 
-
-function address(adr) {
-    GMaps.geocode({
-        address: adr,
-        callback: function (results, status) {
-            if (status == 'OK') {
-                var latlng = results[0].geometry.location;
-                map.setCenter(latlng.lat(), latlng.lng());
-                map.addMarker({
-                    lat: latlng.lat(),
-                    lng: latlng.lng()
-                });
-            }
-        }
-    });
-}
-
-
-
-function postPost() {
-    $$.ajax({
-        url: `http://oddjobbackend.herokuapp.com/newPost?title=${'snow mowing required'}&creator=${1234}&content=${'guys please help my snow is too large'}&uniqueID=${'asdf'}&category${'summer'}&postalCode=${'L2N 2H4'}`,
-        method: 'POST',
-        success: (response) => {
-            console.log(response);
-        }
-    });
-}
-
-
+//Conctact links to messages. User logged in.
 const cardTemplate =
     '<div class="card" >' +
     '   <div style="background-image:url({{season}})" valign="bottom" class="card-header color-white"></div>' +
@@ -143,6 +119,8 @@ const cardTemplate =
     '   </div>' +
     '</div >';
 
+
+
 const cardTemplate2 =
     '<div class="card" >' +
     '   <div style="background-image:url({{season}})" valign="bottom" class="card-header color-white"></div>' +
@@ -158,17 +136,57 @@ const cardTemplate2 =
     '   </div>' +
     '</div >';
 
+//User Not logged in
+const cardTemplate3 =
+    '<div class="card" >' +
+    '   <div style="background-image:url({{season}})" valign="bottom" class="card-header color-white"></div>' +
+    '       <div class="card-content">' +
+    '           <div class="card-content-inner">' +
+    '               <p class="color-gray">Posted on {{date}}</p>' +
+    '               <h3 class=card-title">{{title}}</h3>' +
+    '               <p>{{text}}</p>' +
+    '           </div>' +
+    '       </div>' +
+    '   <div class="card-footer">' +
+    '   <a href="post.html?postID={{postID}}" class="button">Map</a>' +
+    '   </div>' +
+    '</div >';
 
-//Helper FUnctions
+//Helper Functions
+
+function address(adr) {
+    GMaps.geocode({
+        address: adr,
+        callback: function (results, status) {
+            if (status == 'OK') {
+                var latlng = results[0].geometry.location;
+                map.setCenter(latlng.lat(), latlng.lng());
+                map.addMarker({
+                    lat: latlng.lat(),
+                    lng: latlng.lng()
+                });
+            }
+        }
+    });
+}
+function postPost() {
+    $$.ajax({
+        url: `http://oddjobbackend.herokuapp.com/newPost?title=${'snow mowing required'}&creator=${1234}&content=${'guys please help my snow is too large'}&uniqueID=${'asdf'}&category${'summer'}&postalCode=${'L2N 2H4'}`,
+        method: 'POST',
+        success: (response) => {
+            console.log(response);
+        }
+    });
+}
+
 var getUser = function(email, users){
   var currentUser;
   for(var t = 0; t < users.length; t++){
     currentUser = users[t];
-    console.log(currentUser);
     if (currentUser.email === email) {
       return currentUser.firstName;
     }
   }
   return false;
 
-} 
+}

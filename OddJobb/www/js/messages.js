@@ -69,7 +69,6 @@ var getMessages = function (personEmail, callback) {
       }
       else if(currentM.email === personEmail && currentM.message !== "()"){
         pMsgs.push(currentM);
-        //console.log(currentM);
         allMessages.addMessage({
           text: currentM.message,
           name: currentM.name,
@@ -78,10 +77,6 @@ var getMessages = function (personEmail, callback) {
         console.log("Message Added by: " + personEmail);
 
       }
-    }
-    if(callback){
-      callback(pMsgs);
-      return pMsgs;
     }
 
   });
