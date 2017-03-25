@@ -1,3 +1,5 @@
+
+
 myApp.onPageInit('post', function (page) {
 
     myApp.params.swipePanel = false;
@@ -9,7 +11,7 @@ myApp.onPageInit('post', function (page) {
         success: (response) => {
             let postsList = JSON.parse(response);
             postsList.forEach((post) => {
-                if (post.endDate && post._id == page.query.postID) {
+                if (post.postalCode && post._id == page.query.postID) {
                     posts.push({
                         title: post.title,
                         date: new Date(post.postDate).toDateString(),
@@ -18,13 +20,15 @@ myApp.onPageInit('post', function (page) {
                         creator: post.creator,
                         postalCode: post.postalCode,
                         postID: post._id
-                    })
-                    map = new GMaps({
-                        div: '#map',
                     });
-                    address(post.postalCode);
                 }
             });
+            map = new GMaps({
+                div: '#map',
+                lat: -12.043333,
+                lng: -77.028333
+            });
+            address(posts[0].postalCode);
             const myList = myApp.virtualList('.single-card', {
                 items: posts,
                 template: cardTemplate2
