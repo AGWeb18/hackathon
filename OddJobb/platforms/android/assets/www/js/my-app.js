@@ -20,6 +20,7 @@ $$(document).on('deviceready', function () {
   document.getElementById('viewMessages').style.display = 'none';
   document.getElementById('profile').style.display = 'none';
   document.getElementById('logout').style.display = 'none';
+  document.getElementById('myPost').style.display = 'none';
     console.log("Device is ready!");
     $.get('https://oddjobbackend.herokuapp.com/users', function(data){
       users = data;
@@ -52,6 +53,7 @@ $$(document).on('deviceready', function () {
         document.getElementById('viewMessages').style.display = 'block';
         document.getElementById('profile').style.display = 'block';
         document.getElementById('logout').style.display = 'block';
+        document.getElementById('myPost').style.display = 'block';
         mainView.router.loadPage({url:'postList.html', ignoreCache:true, reload:true });
 
       }
