@@ -46,26 +46,27 @@ myApp.onPageInit('postList', function (page) {
         url: 'http://oddjobbackend.herokuapp.com/posts',
         method: 'GET',
         success: (response) => {
-          $.get("http://oddjobbackend.herokuapp.com/users", function(data){
-            let postsList = JSON.parse(response).reverse();
-            postsList.forEach((post) => {
-              var user = getUser(post.creator, data);
-                if (post.title) {
-                    posts.push({
-                        title: post.title,
-                        date: new Date(post.postDate).toDateString(),
-                        postalCode: post.postalCode,
-                        season: 'img/green.jpg',
-                        text: post.content,
-                        creator: post.creator,
-                        postID: post._id,
-                        item: user,
-                        email: window.user,
-                        distance: ''
-                    })
-                }
+            $.get("http://oddjobbackend.herokuapp.com/users", function (data) {
+                let postsList = JSON.parse(response).reverse();
+                postsList.forEach((post) => {
+                    var user = getUser(post.creator, data);
+                    if (post.title) {
+                        posts.push({
+                            title: post.title,
+                            date: new Date(post.postDate).toDateString(),
+                            postalCode: post.postalCode,
+                            season: 'img/white.jpg',
+                            text: post.content,
+                            creator: post.creator,
+                            postID: post._id,
+                            item: user,
+                            email: window.user,
+                            distance: ''
+                        })
+                    }
+                });
+                myList.replaceAllItems(posts);
             });
-            myList.replaceAllItems(posts);
         }
     });
 
@@ -220,15 +221,15 @@ const cardTemplateDistance =
 
 
 //Helper FUnctions
-var getUser = function(email, users){
-  var currentUser;
-  for(var t = 0; t < users.length; t++){
-    currentUser = users[t];
-    console.log(currentUser);
-    if (currentUser.email === email) {
-      return currentUser.firstName;
+var getUser = function (email, users) {
+    var currentUser;
+    for (var t = 0; t < users.length; t++) {
+        currentUser = users[t];
+        console.log(currentUser);
+        if (currentUser.email === email) {
+            return currentUser.firstName;
+        }
     }
-  }
-  return false;
+    return false;
 
 } 
