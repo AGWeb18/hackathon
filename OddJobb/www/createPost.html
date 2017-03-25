@@ -35,50 +35,60 @@
                             <div class="item-inner">
                               <div class="item-title label">Name</div>
                               <div class="item-input">
-                                <input type="text" placeholder="Your name">
+                                <input type="text" id="name" placeholder="Your name">
                               </div>
                             </div>
                           </div>
                         </li>
-<!--- email field item created here  -->                        
+<!--- email field item created here  -->
                         <li>
                           <div class="item-content">
                             <div class="item-inner">
                               <div class="item-title label">Email</div>
                               <div class="item-input">
                                 <!-- Make sure that input have "name attrobute" -->
-                                <input type="text" name="email" placeholder="Your email">
+                                <input type="text" id="email" name="email" placeholder="Your email">
                               </div>
                             </div>
                           </div>
                         </li>
 
-    <!-- description section of the post page --> 
+    <!-- description section of the post page -->
                         <!-- Text inputs -->
                         <li>
                           <div class="item-content">
                             <div class="item-inner">
                               <div class="item-title label">Postal Code</div>
                               <div class="item-input">
-                                <input type="text" placeholder="Postal Code">
+                                <input type="text" id="postalCode" placeholder="Postal Code">
                               </div>
                             </div>
                           </div>
                         </li>
-            <!-- end of description --> 
+            <!-- end of description -->
                       </ul>
 <div class="content-block-title">Need help with a task?</div>
 
-        
-            <ul> 
+
+            <ul>
              <!-- Text inputs -->
                         <li>
                           <div class="item-content">
                             <div class="item-inner">
                               <div class="item-title label">Title</div>
                               <div class="item-input">
-                                <input type="text" placeholder="Post Title">
+                                <input type="text" id="title" placeholder="Post Title">
                               </div>
+
+                            </div>
+                          </div>
+                          <div class="item-content">
+                            <div class="item-inner">
+                              <div class="item-title label">When</div>
+                              <div class="item-input">
+                                <input type="text" id="when" placeholder="When do you need the task to be done?">
+                              </div>
+
                             </div>
                           </div>
                         </li>
@@ -90,7 +100,7 @@
                                       <div class="item-title label">Explain:
                                       </div>
                                       <div class="item-input">
-                                        <textarea placeholder="Describe the task"></textarea>
+                                        <textarea  id="content" placeholder="Describe the task"></textarea>
                                       </div>
                                     </div>
                                   </div>
@@ -102,7 +112,7 @@
 
          <div class="list-block content-block">
             <ul>
-                <li><a href="#" class="item-link list-button">Submit Post</a></li>
+                <li><a href="#" id="submitPost" class="item-link list-button">Submit Post</a></li>
             </ul>
             <div class="list-block-label">
             </div>

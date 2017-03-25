@@ -34,12 +34,12 @@ $$(document).on('deviceready', function () {
 
       console.log('users',users);
       if(username === '') {
-        myApp.alert('Oops! You left your username blank');
+        myApp.alert('Oops! You left your username blank', 'Blank Username');
 
       }
 
       else if(password === '') {
-        myApp.alert('Oops! You left your password blank');
+        myApp.alert('Oops! You left your password blank', "Blank Password");
 
 
       }
