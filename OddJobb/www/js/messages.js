@@ -5,11 +5,11 @@
 var msgTemplate = '{{#if day}}' +
     '<div class="messages-date">{{day}} {{#if time}}, <span>{{time}}</span>{{/if}}</div>' +
     '{{/if}}' +
-    '<div class="message message-{{type}} {{id}} hidden {{#if hasImage}}message-pic{{/if}} {{#if avatar}}message-with-avatar{{/if}} {{#if position}}message-appear-from-{{position}}{{/if}}">' +
-    '{{#if name}}<div class="message-name {{id}} hidden">{{name}}</div>{{/if}}' +
-    '<div class="message-text {{id}}">{{text}}{{#if date}}<div class="message-date hidden">{{date}}</div>{{/if}}</div>' +
-    '{{#if avatar}}<div class="message-avatar" style="background-image:url({{avatar}})"></div>{{/if}}' +
-    '{{#if label}}<div class="message-label">{{label}}</div>{{/if}}' +
+    '<div class="message message-{{type}} hidden {{id}} {{#if hasImage}}message-pic{{/if}} {{#if avatar}}message-with-avatar{{/if}} {{#if position}}message-appear-from-{{position}}{{/if}}">' +
+    '{{#if name}}<div class="message-name hidden {{id}}">{{name}}</div>{{/if}}' +
+    '<div class="message-text {{id}}">{{text}}{{#if date}}<div class="message-date hidden {{id}}">{{date}}</div>{{/if}}</div>' +
+    '{{#if avatar}}<div class="message-avatar hidden {{id}}" style="background-image:url({{avatar}})"></div>{{/if}}' +
+    '{{#if label}}<div class="message-label hidden {{id}}">{{label}}</div>{{/if}}' +
     '</div>';
 
 var error = "";
@@ -24,7 +24,7 @@ function messagesMain(queryParams) {
 
     //Have to read from api to know which user to read from
     //console.log(queryParams);
-    var prevMessages = loadMessages(queryParams);
+    //loadMessages(queryParams);
 
     //Really only applicable to desktop version
     $$('.messagebar').on('keypress', function (e) {
@@ -40,14 +40,13 @@ function messagesMain(queryParams) {
     var sendMsg = function () {
         currentMsg = msgBar.value().trim();
         msgBar.clear();
-
         messages.addMessage({
             text: currentMsg,
             name: "Mateo",
-            id: "Mateo"
+            id: queryParams
         }, "append", true);
    
-        console.log("message sent"); 
+        console.log("Message Sent"); 
     }
 
     printErr(error);
@@ -56,27 +55,26 @@ function messagesMain(queryParams) {
 
 //Load messages of a particular person.
 var loadMessages = function (person) {
-    allMsgs = $$("." + person);
+    allMsgs = document.getElementsByClassName(person);
     console.log(allMsgs);
-    allMsgs.addClass("visible");
-    allMsgs.removeClass("hidden");
-
-    /*
-    var msgs = $$("." + person);
-    if (msgs === null) {
-        error = "Invalid Person Called";
+    if (allMsgs === null) {
         return;
     }
-    var people = [];
-    for (var i = 0; i < msgs.length; i++) {
-        var current = msgs[i];
-        if (people.indexOf(current.innerHTML) === -1) {
-            people.push(current);
+    for (var i = 0; i < allMsgs.length; i++) {
+        var current = allMsgs[i];
+        if (current.classList.contains("hidden")) {
+            current.classList.remove("hidden");
+            current.style["display"] = "inline";
         }
+    } 
+}
+
+var hideAll = function () {
+    var allElements = document.getElementsByClassName("hidden");
+    for (var i = 0; i < allElements.length; i++) {
+        var current = allElements[i];
+        current.style["display"] = "none";
     }
-    //console.log(people);
-    return people;
-    */
 }
 
 
