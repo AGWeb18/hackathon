@@ -9,7 +9,7 @@
 
    See https://github.com/apache/cordova-plugin-statusbar
 */
-
+#map { height: 380px; width: 80%;}
 .statusbar-overlay {
     background: #000000;
 }

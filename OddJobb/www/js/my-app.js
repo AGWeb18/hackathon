@@ -1,7 +1,36 @@
 // Initialize app
-var myApp = new Framework7();
+var myApp = new Framework7({
+    swipePanel: 'left'
+	
+});
 
+myApp.onPageInit('defaultpage', function (page) {
+    myApp.params.swipePanel = false;
+	new GMaps({
+	  div: '#map',
+	  lat: -12.043333,
+	  lng: -77.028333 
+	}); 
+	$$('#addressButton').on('click', function (e){
+		address();
+	});
+});
 
+function address(){         
+GMaps.geocode({
+			  address: $('#address').val(),
+			  callback: function(results, status) {
+				if (status == 'OK') {
+				  var latlng = results[0].geometry.location;
+				  map.setCenter(latlng.lat(), latlng.lng());
+				  map.addMarker({
+					lat: latlng.lat(),
+					lng: latlng.lng()
+				  });
+				}
+			  }
+			});
+}
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
@@ -25,20 +54,33 @@ myApp.onPageInit('about', function (page) {
     myApp.alert('Here comes About page');
 })
 
-
 //Each message Page
 myApp.onPageInit('indMsg', function (page) {
-    var queryParams = page.query["messageId"];
-    var title = document.getElementById("currentPerson");
-    title.innerHTML = queryParams;
-    messagesMain(queryParams);
+    messagesMain();
 })
 
 //Messages Page
 myApp.onPageInit('messages', function (page) {
+    //messagesMain();
+    /*
+    1. Do AJAX call
+    2. Put data into Array
+    3. Set array
+    */
+    const people = [
+        /*
+        {
+            name: nameOfPerson
+            message: This is a mess...
+            
+        }*/
+    ];
 
-    //Will be reading this from the database
-    const people = [{ item: "Mateo" }, { item: "Holly" }, { item: "Anthony" }, { item: "Haowei" }];
+    for (var i = 0; i < 10; i++) {
+        people.push({
+            item: i
+        });
+    }
 
     const myListOfPeople = myApp.virtualList('.list-block.virtual-list', {
         items: people,
@@ -132,3 +174,4 @@ myApp.onPageInit('postList', function (page) {
         '</li>'
     });
 })
+
