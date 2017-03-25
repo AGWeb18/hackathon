@@ -1,17 +1,17 @@
 /**
  * Framework7 1.4.0
  * Full Featured Mobile HTML Framework For Building iOS & Android Apps
- * 
+ *
  * iOS Theme
  *
  * http://www.idangero.us/framework7
- * 
+ *
  * Copyright 2015, Vladimir Kharlampidi
  * The iDangero.us
  * http://www.idangero.us/
- * 
+ *
  * Licensed under MIT
- * 
+ *
  * Released on: December 7, 2015
  */
 html,
@@ -4279,7 +4279,7 @@ html.pixel-ratio-3 .picker-modal.smart-select-picker .toolbar:after {
 .panel {
   z-index: 1000;
   display: none;
-  background: #111;
+  background: purple;
   box-sizing: border-box;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
