@@ -22,12 +22,11 @@ myApp.onPageInit('messages', function (page) {
 
   //Will be reading this from the database
   //Get list of users
-  $.get('http://oddjobbackend.herokuapp.com/users', function(data) {
-    const people = [];
-    for(var i = 0; i < data.length; i++){
-      var currentP = data[i];
-      console.log(currentP);
-      getMessages(currentP.email, false, function(msgs){
+  const people = [];
+  $.get('http://oddjobbackend.herokuapp.com/users', function(users) {
+    $.get("http://oddjobbackend.herokuapp.com/messages", function(msgs){
+      for(var i = 0; i < users.length; i++){
+        currentP = users[i];
         var msg = "Test Message Test Message Test Message";
         if(msgs.length > 0){
           msg = msgs[msgs.length - 1].message;
@@ -37,9 +36,8 @@ myApp.onPageInit('messages', function (page) {
           items: people,
           template: peopleTemplate
         });
-      });
+      }
 
-    }
-
+    });
   });
 })

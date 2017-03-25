@@ -15,7 +15,9 @@ myApp.onPageInit('post', function (page) {
                         season: 'img/white.jpg',
                         text: post.content,
                         creator: post.creator,
-                        postID: post._id
+                        postID: post._id,
+                        personName: post.creator,
+                        email: window.user
                     })
                     map = new GMaps({
                         div: '#map',
@@ -43,13 +45,16 @@ myApp.onPageInit('postList', function (page) {
             let postsList = JSON.parse(response);
             postsList.forEach((post) => {
                 if (post.title) {
+                  console.log(window.firstname + " " + window.user)
                     posts.push({
                         title: post.title,
                         date: 'January 1 2015',
                         season: 'img/white.jpg',
                         text: post.content,
                         creator: post.creator,
-                        postID: post._id
+                        postID: post._id,
+                        userName: window.name,
+                        email: post.email
                     })
                 }
             });
@@ -128,6 +133,6 @@ const cardTemplate2 =
     '           </div>' +
     '       </div>' +
     '   <div class="card-footer">' +
-    '   <a href="#" class="button">Contact</a>' +
+    '   <a href="indMsg.html?personName={{userName}}&email={{email}}" class="button">Contact</a>' +
     '   </div>' +
     '</div >';
