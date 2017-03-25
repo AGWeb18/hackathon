@@ -10,6 +10,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -20,7 +21,7 @@
     <meta name="msapplication-tap-highlight" content="no">
 
     <!-- Your app title -->
-    <title>My App</title>
+    <title>OddJobbs</title>
 
     <!-- This template defaults to the iOS CSS theme. To support both iOS and material design themes, see the Framework7 Tutorial at the link below:
         http://www.idangero.us/framework7/tutorials/maintain-both-ios-and-material-themes-in-single-app.html
@@ -54,11 +55,8 @@
 					  <a href="#" class="item-link list-button">View current posts</a>
 					</li>
 					<li>
-					  <a href="messages.html" class="item-link list-button">Messages</a>
+					  <a href="#" class="item-link list-button">Messages</a>
 					</li>
-                   <li>
-                      <a href="about.html" class="item-link list-button close-panel">About</a>
-                    </li>
 					<li>
 					  <a href="#" class="item-link list-button">Logout</a>
 					</li>
@@ -92,48 +90,72 @@
                     <!-- Scrollable page content -->
                     <div class="page-content">
                         <div class="content-block">
-                            <!-- Link to another page -->
-                          <div class="login-box">
-                            <div class="lb-header">
-                              <a href="index.html" class="active" id="login-box-link">Login</a>
-                              <a href="login.html" id="signup-box-link">Sign Up</a>
-                            </div>
-                            <div class="social-login">
-                              <a href="#">
-                                <i class="fa fa-facebook fa-lg"></i>
-                                Login with facebook
-                              </a>
-                              <a href="#">
-                                <i class="fa fa-google-plus fa-lg"></i>
-                                Log in with Google
-                              </a>
-                            </div>
-                            <form class="email-login">
-                              <div class="u-form-group">
-                                <input type="email" placeholder="Email"/>
-                              </div>
-                              <div class="u-form-group">
-                                <input type="password" placeholder="Password"/>
-                              </div>
-                              <div class="u-form-group">
-                                <button>Log in</button>
-                              </div>
-                              <div class="u-form-group">
-                                <a href="#" class="forgot-password">Forgot password?</a>
-                              </div>
-                          </div>
+<form>
+    <div class="list-block">
+        <ul>
+            <li class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">First Name</div>
+                        <div class="item-input">
+                            <input type="text" name="firstName" placeholder="Your first name">
+                        </div>
+                </div>
+            </li>
+             <li class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">Last Name</div>
+                        <div class="item-input">
+                            <input type="text" name="lastName" placeholder="Your last name">
+                        </div>
+                </div>
+            </li>                
+            <li class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">Email</div>
+                        <div class="item-input">
+                            <input type="text" name="email" placeholder="Your email">
+                        </div>
+                </div>
+            </li>
+           <li class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">Phone</div>
+                        <div class="item-input">
+                            <input type="text" name="phone" placeholder="Your phone number">
+                        </div>
+                </div>
+            </li>
+            <li class="item-content">
+                <div class="item-inner">
+                <div class="item-title label">Password</div>
+                <div class="item-input">
+                <input type="password" name="password" placeholder="Your password">
+                </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="list-block">
+    <ul>
+    <li><a href="#" class="item-link list-button">Register</a></li>
+    </ul>
+    <div class="list-block-label">
+    </div>
+    </div>
+    <p>Already have an account? <a href="index.html"><strong> Login </strong></a>
+</form>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Bottom Toolbar-->
-            <!---<div class="toolbar">
+            <div class="toolbar">
                 <div class="toolbar-inner">
-                    <!-- Toolbar links
+                    <!-- Toolbar links -->
                     <a href="#" class="link">Link 1</a>
                     <a href="#" class="link">Link 2</a>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 
@@ -141,8 +163,6 @@
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js/messages.js"></script>
 </body>
 
 </html>

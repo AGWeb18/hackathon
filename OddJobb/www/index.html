@@ -10,6 +10,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -45,10 +46,10 @@
 				<div class="list-block">
 				  <ul>
 					<li>
-					  <a href="#" class="item-link list-button close-panel">Profile</a>
+					  <a href="#" class="item-link list-button">Profile</a>
 					</li>
 					<li>
-					  <a href="#" class="item-link list-button close-panel">Submit a new post</a>
+					  <a href="#" class="item-link list-button">Submit a new post</a>
 					</li>
 					<li>
 					  <a href="postList.html" class="item-link list-button close-panel">View current posts</a>
@@ -56,8 +57,11 @@
 					<li>
 					  <a href="messages.html" class="item-link list-button close-panel">Messages</a>
 					</li>
+                   <li>
+                      <a href="about.html" class="item-link list-button close-panel">About</a>
+                    </li>
 					<li>
-					  <a href="#" class="item-link list-button close-panel">Logout</a>
+					  <a href="#" class="item-link list-button">Logout</a>
 					</li>
 				  </ul>
 				</div>
@@ -89,9 +93,36 @@
                     <!-- Scrollable page content -->
                     <div class="page-content">
                         <div class="content-block">
-                            <p>Page content goes here</p>
                             <!-- Link to another page -->
-                            <a href="about.html">About app</a>
+                          <div class="login-box">
+                            <div class="lb-header">
+                              <a href="index.html" class="active" id="login-box-link">Login</a>
+                              <a href="login.html" id="signup-box-link">Sign Up</a>
+                            </div>
+                            <div class="social-login">
+                              <a href="#">
+                                <i class="fa fa-facebook fa-lg"></i>
+                                Login with facebook
+                              </a>
+                              <a href="#">
+                                <i class="fa fa-google-plus fa-lg"></i>
+                                Log in with Google
+                              </a>
+                            </div>
+                            <form class="email-login">
+                              <div class="u-form-group">
+                                <input type="email" placeholder="Email"/>
+                              </div>
+                              <div class="u-form-group">
+                                <input type="password" placeholder="Password"/>
+                              </div>
+                              <div class="u-form-group">
+                                <button>Log in</button>
+                              </div>
+                              <div class="u-form-group">
+                                <a href="#" class="forgot-password">Forgot password?</a>
+                              </div>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -103,6 +134,8 @@
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+    <script src="js/messages.js"></script>
 </body>
 
 </html>

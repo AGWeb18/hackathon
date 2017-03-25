@@ -16,6 +16,7 @@ $$(document).on('deviceready', function () {
 });
 
 
+
 // Now we need to run the code that will be executed only for About page.
 
 // Option 1. Using page callback for page (for "about" page in this case) (recommended way):
@@ -24,7 +25,45 @@ myApp.onPageInit('about', function (page) {
     myApp.alert('Here comes About page');
 })
 
-myApp.onPageInit('login', function (page) {
+
+//Each message Page
+myApp.onPageInit('indMsg', function (page) {
+    messagesMain();
+})
+
+//Messages Page
+myApp.onPageInit('messages', function (page) {
+    //messagesMain();
+    /*
+    1. Do AJAX call
+    2. Put data into Array
+    3. Set array
+    */
+    const people = [
+        /*
+        {
+            name: nameOfPerson
+            message: This is a mess...
+            
+        }*/
+    ];
+
+    for (var i = 0; i < 10; i++) {
+        people.push({
+            item: i
+        });
+    }
+
+    const myListOfPeople = myApp.virtualList('.list-block.virtual-list', {
+        items: people,
+        template:
+        '<li>' +
+        '<a href="indMsg.html?messageId={{item}}" class="item-link item-content">' +
+        '<div>{{item}}</div>' +
+        '</a>' +
+        '</div>' +
+        '</li>'
+    });
 })
 
 myApp.onPageInit('post', function (page) {
@@ -83,7 +122,6 @@ myApp.onPageInit('postList', function (page) {
     2. Put data into Array
     3. Set array
     */
-
     const posts = [
         /*
         {
