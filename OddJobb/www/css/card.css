@@ -4,6 +4,10 @@
     background-position: center;
 }
 
+h3 .card-title {
+    margin: 0;
+}
+
 ul {
     padding: 0;
 }
