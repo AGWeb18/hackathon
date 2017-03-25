@@ -17,6 +17,7 @@ $$(document).on('deviceready', function () {
   window.user = false;
   window.login = false;
   document.getElementById('createPost').style.visibility = 'hidden';
+  document.getElementById('myPost').style.visibility = 'hidden';
   document.getElementById('viewMessages').style.visibility = 'hidden';
   document.getElementById('profile').style.visibility = 'hidden';
   document.getElementById('logout').style.visibility = 'hidden';
@@ -49,6 +50,7 @@ $$(document).on('deviceready', function () {
         window.user = username;
         window.login = true;
         document.getElementById('createPost').style.visibility = 'visible';
+        document.getElementById('myPost').style.visibility = 'visible';
         document.getElementById('viewMessages').style.visibility = 'visible';
         document.getElementById('profile').style.visibility = 'visible';
         document.getElementById('logout').style.visibility = 'visible';
@@ -97,10 +99,5 @@ function logout(e) {
 
   else {
     myApp.alert('You can\'t log out if you\'re not logged in');
-
-
   }
-
-
-
 }
