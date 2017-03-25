@@ -1,4 +1,5 @@
 myApp.onPageInit('post', function (page) {
+
     myApp.params.swipePanel = false;
     const posts = [];
 
@@ -169,4 +170,5 @@ var getUser = function(email, users){
     }
   }
   return false;
-}
+
+} 
