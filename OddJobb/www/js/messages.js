@@ -45,36 +45,19 @@ function sendMessage(personName, email) {
       }, "append", true);
 
       $.post("http://oddjobbackend.herokuapp.com/newMessage?email=" + email + "&name=" + personName + "&message="+ currentMsg + "&personSent=(PERSONSENT)&id="+ msgId, function(data){
-        console.log("Messgae submitted " + data);
+        console.log("Message submitted " + data);
       });
   }
   printErr(error);
 };
 
-var deleteAllMsgs = function(){
-  getMessages(undefined, function(msgs){
-    console.log(msgs);
-    var curMsgs = {};
-    for(var t = 0; t < msgs.length; t++){
-      curMsgs = msgs[t];
-      console.log(msgs[t]);
-      $.del("http://oddjobbackend.herokuapp.com/deleteMessage/" + curMsg["_id"], function(data){
-        console.log("Message " + curMsgs["id"] + " deleted.");
-      });
-
-    }
-  });
-
-}
-
 //Load messages of a particular person.
-var getMessages = function (personEmail, seeMessages, callback) {
+var getMessages = function (personEmail, callback) {
   var msgHandler = new Framework7();
   var $$ = Dom7;
 
   var allMessages = msgHandler.messages('.messages', { messageTemplate: msgTemplate });
   var msgBar = msgHandler.messagebar('.messagebar');
-  var currentM = {};
   var pMsgs = [];
 
   $.get("http://oddjobbackend.herokuapp.com/messages", function(data){
@@ -87,14 +70,13 @@ var getMessages = function (personEmail, seeMessages, callback) {
       else if(currentM.email === personEmail && currentM.message !== "()"){
         pMsgs.push(currentM);
         //console.log(currentM);
-        if(seeMessages){
-          allMessages.addMessage({
-            text: currentM.message,
-            name: currentM.name,
-            id: currentM.id
-          }, "append", true);
-          console.log("Message Added");
-        }
+        allMessages.addMessage({
+          text: currentM.message,
+          name: currentM.name,
+          id: currentM.id
+        }, "append", true);
+        console.log("Message Added by: " + personEmail);
+
       }
     }
     if(callback){
