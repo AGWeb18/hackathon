@@ -31,6 +31,10 @@ myApp.onPageInit('login', function (page) {
           myApp.alert('Welcome ' + username + '! You are now logged in!');
           window.user = username;
           window.login = true;
+          document.getElementById('createPost').style.visibility = 'visible';
+          document.getElementById('viewMessages').style.visibility = 'visible';
+          document.getElementById('profile').style.visibility = 'visible';
+          document.getElementById('logout').style.visibility = 'visible';
         }
 
         else {
