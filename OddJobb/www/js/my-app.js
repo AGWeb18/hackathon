@@ -41,6 +41,7 @@ $$(document).on('deviceready', function () {
         //set global variable to indicate correct login
         console.log('Correct welcome my friend');
         window.user = username;
+        window.login = true;
       }
 
       else {
