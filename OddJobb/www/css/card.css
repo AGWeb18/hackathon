@@ -1,0 +1,9 @@
+.card-header {
+    height: 10vw;
+    background-size: cover;
+    background-position: center;
+}
+
+ul {
+    padding: 0;
+}
