@@ -8,11 +8,11 @@ myApp.onPageInit('post', function (page) {
         success: (response) => {
             let postsList = JSON.parse(response);
             postsList.forEach((post) => {
-                if (post.title && post._id == page.query.postID) {
+                if (post.endDate && post._id == page.query.postID) {
                     posts.push({
                         title: post.title,
-                        date: 'January 1 2015',
-                        season: 'img/white.jpg',
+                        date: new Date(post.postDate).toDateString(),
+                        season: 'img/green.jpg',
                         text: post.content,
                         creator: post.creator,
                         postID: post._id
@@ -40,13 +40,13 @@ myApp.onPageInit('postList', function (page) {
         url: 'http://oddjobbackend.herokuapp.com/posts',
         method: 'GET',
         success: (response) => {
-            let postsList = JSON.parse(response);
+            let postsList = JSON.parse(response).reverse();
             postsList.forEach((post) => {
-                if (post.title) {
+                if (post.endDate) {
                     posts.push({
                         title: post.title,
-                        date: 'January 1 2015',
-                        season: 'img/white.jpg',
+                        date: new Date(post.postDate).toDateString(),
+                        season: 'img/green.jpg',
                         text: post.content,
                         creator: post.creator,
                         postID: post._id
@@ -64,11 +64,30 @@ myApp.onPageInit('postList', function (page) {
 
 
 myApp.onPageInit('myPosts', function (page) {
-    const testUser = {
-        id: '1234'
-    };
-
-
+    const posts = [];
+    $$.ajax({
+        url: 'http://oddjobbackend.herokuapp.com/posts',
+        method: 'GET',
+        success: (response) => {
+            let postsList = JSON.parse(response).reverse();
+            postsList.forEach((post) => {
+                if (post.endDate && post.creator == window.user) {
+                    posts.push({
+                        title: post.title,
+                        date: new Date(post.postDate).toDateString(),
+                        season: 'img/green.jpg',
+                        text: post.content,
+                        creator: post.creator,
+                        postID: post._id
+                    })
+                }
+            });
+            const myList = myApp.virtualList('.my-postlist', {
+                items: posts,
+                template: cardTemplate
+            });
+        }
+    });
 });
 
 
