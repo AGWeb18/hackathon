@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
@@ -10,7 +11,6 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -21,7 +21,7 @@
     <meta name="msapplication-tap-highlight" content="no">
 
     <!-- Your app title -->
-    <title>My App</title>
+    <title>OddJobbs</title>
 
     <!-- This template defaults to the iOS CSS theme. To support both iOS and material design themes, see the Framework7 Tutorial at the link below:
         http://www.idangero.us/framework7/tutorials/maintain-both-ios-and-material-themes-in-single-app.html
@@ -43,30 +43,33 @@
     <div class="panel panel-left panel-reveal">
         <div class="content-block">
             <div class="content-block-title">Navigation</div>
-				<div class="list-block">
-				  <ul>
-					<li>
-					  <a href="#" class="item-link list-button close-panel">Profile</a>
-					</li>
-					<li>
-					  <a href="#" class="item-link list-button close-panel">Submit a new post</a>
-					</li>
-					<li>
-					  <a href="/" class="item-link list-button close-panel">View current posts</a>
-					</li>
-					<li>
-					  <a href="#" class="item-link list-button close-panel">Messages</a>
-					</li>
-					<li>
-					  <a href="#" class="item-link list-button close-panel">Logout</a>
-					</li>
-				  </ul>
-				</div>
+            <div class="list-block">
+                <ul>
+                    <li>
+                        <a href="#" class="item-link list-button close-panel">Profile</a>
+                    </li>
+                    <li>
+                        <a href="defaultpage.html" class="item-link list-button close-panel">Submit a new post</a>
+                    </li>
+                    <li>
+                        <a href="postList.html" class="item-link list-button close-panel">View current posts</a>
+                    </li>
+                    <li>
+                        <a href="messages.html" class="item-link list-button close-panel">Messages</a>
+                    </li>
+                    <li>
+                        <a href="about.html" class="item-link list-button close-panel">About</a>
+                    </li>
+                    <li>
+                        <a href="#" class="item-link list-button close-panel">Logout</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <!-- Views -->
-    <div class="views">
+    <div class="views"> 
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
             <!-- Top Navbar-->
@@ -85,24 +88,42 @@
             </div>
             <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
             <div class="pages navbar-through toolbar-through">
-                <!-- Page, "data-page" contains page name -->
                 <div data-page="index" class="page">
                     <!-- Scrollable page content -->
                     <div class="page-content">
                         <div class="content-block">
-                            <p>Page content goes here</p>
-                            <!-- Link to another page -->
-                            <a href="about.html">About app</a>
+                            <form>
+                                <div class="list-block">
+                                    <ul>
+                                        <li class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title label">Username</div>
+                                                <div class="item-input">
+                                                    <input type="text" name="username" placeholder="Your username">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title label">Password</div>
+                                                <div class="item-input">
+                                                    <input type="password" name="password" placeholder="Your password">
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="list-block">
+                                    <ul>
+                                        <li><a href="#" class="item-link list-button">Sign In</a></li>
+                                    </ul>
+                                    <div class="list-block-label">
+                                    </div>
+                                </div>
+                                <p>Don't have an account? <a href="register.html"><strong> Register Now </strong></a>
+                            </form>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- Bottom Toolbar-->
-            <div class="toolbar">
-                <div class="toolbar-inner">
-                    <!-- Toolbar links -->
-                    <a href="#" class="link">Link 1</a>
-                    <a href="#" class="link">Link 2</a>
                 </div>
             </div>
         </div>
@@ -110,8 +131,12 @@
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyDqwL4NIot6kxkU47LWMQl5-f4sKvHMKrM"></script>
+	<script type="text/javascript" src="js/gmaps.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/messages.js"></script>
 </body>
 
 </html>
